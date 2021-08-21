@@ -1,0 +1,26 @@
+server:
+  port: 8040
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REMOTE-SERVER-IP:127.0.0.1}:8848
+    gateway:
+      discovery:
+        locator:
+          # 让 gateway 通过服务注册组件找到注册中心的其他微服务
+          enabled: true
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
