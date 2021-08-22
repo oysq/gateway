@@ -13,6 +13,23 @@ spring:
         locator:
           # 让 gateway 通过服务注册组件找到注册中心的其他微服务
           enabled: true
+      routes:
+#        - id: my_after
+#          uri: lb://user-center
+#          predicates:
+#            - After=2010-01-20T17:42:47.789-07:00[America/Denver]
+        - id: my_path
+          uri: lb://content-center
+          predicates:
+            - Path=/shares/**
+          filters:
+            - AddRequestHeader=x-oysq, test1
+        - id: my_content
+          uri: lb://content-center
+          predicates:
+            - Contain=notice
+          filters:
+            - PreLog=key, 123
 
 # actuator
 management:
